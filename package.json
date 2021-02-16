@@ -1,0 +1,23 @@
+{
+  "name": "eth-twitter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^4.3.0",
+    "dotenv": "^8.2.0",
+    "ethers": "^5.0.31",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@openzeppelin/test-helpers": "^0.5.10",
+    "solidity-coverage": "^0.7.14"
+  },
+  "scripts": {
+    "test": "rm -rf build && truffle test",
+    "server": "ganache-cli",
+    "build": "truffle compile",
+    "coverage": "rm -rf build && truffle run coverage",
+    "migrate": "truffle migrate --network ropsten"
+  }
+}
