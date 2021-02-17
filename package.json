@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.2.2",
     "chai": "^4.3.0",
     "dotenv": "^8.2.0",
     "ethers": "^5.0.31",
@@ -18,6 +19,8 @@
     "server": "ganache-cli",
     "build": "truffle compile",
     "coverage": "rm -rf build && truffle run coverage",
-    "migrate": "truffle migrate --network ropsten"
+    "migrate": "truffle migrate --network ropsten",
+    "docker:test": "docker-compose -p eth-twitter-test -f docker-compose.tests.yml up",
+    "docker:migrate": "docker-compose -p eth-twitter-migrate -f docker-compose.migrate.yml up"
   }
 }
