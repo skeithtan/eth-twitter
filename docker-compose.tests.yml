@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   ethereum:
-    container_name: ethereum
+    container_name: twitter-ethereum
     image: trufflesuite/ganache-cli
     networks:
       - ethereum
@@ -12,7 +12,7 @@ services:
       driver: none
   
   test:
-    container_name: test
+    container_name: twitter-contract-test
     build:
       context: ./
       dockerfile: tests.Dockerfile
@@ -25,3 +25,5 @@ services:
       - host=ethereum
     networks:
       - ethereum
+networks: 
+  ethereum:
