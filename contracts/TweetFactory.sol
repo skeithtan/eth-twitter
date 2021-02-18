@@ -17,6 +17,7 @@ contract TweetFactory {
     uint nextTweetId = 1;
     uint tweetCount = 0;
 
+    // This function has been taken from https://ethereum.stackexchange.com/a/30914
     function compareStrings(string memory a, string memory b) public pure returns (bool) {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
     }
