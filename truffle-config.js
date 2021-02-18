@@ -51,9 +51,9 @@ module.exports = {
     // options below to some value.
     
     development: {
-      host: "127.0.0.1",
-      port: 7545,
-      network_id: "*"      // Any network (default: none)
+      host: HOST,
+      port: PORT,
+      network_id: NETWORK_ID      // Any network (default: none)
     },
     ganache: {
       host: "127.0.0.1",
