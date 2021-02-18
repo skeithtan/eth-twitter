@@ -41,11 +41,11 @@ contract TweetFactory {
         Tweet[] memory timeline = new Tweet[](tweetCount);
         uint idx = 0;
 
-        for(uint i = 1; i < nextTweetId; i++) {
+        for(uint i = nextTweetId - 1; i > 0; i--) {
             Tweet memory curTweet = tweets[i];
 
             // Means it's not deleted
-            if (curTweet.id == i) {
+            if (curTweet.id != 0) {
                 timeline[idx++] = curTweet;
             }
         }

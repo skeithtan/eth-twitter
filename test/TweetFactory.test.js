@@ -77,7 +77,7 @@ contract("TweetFactory", function() {
     });
 
     describe("Retrieving tweets", () => {
-        it("Should get tweets in a list", async () => {
+        it("Should chronologically get tweets in a list", async () => {
             const message1 = "Bitcoin go brr";
             const author1 = "Elon Musk";
 
@@ -87,7 +87,7 @@ contract("TweetFactory", function() {
             await this.TweetFactory.createTweet(message1, author1);
             await this.TweetFactory.createTweet(message2, author2);
 
-            const [tweet1, tweet2] = await this.TweetFactory.getTweets();
+            const [tweet2, tweet1] = await this.TweetFactory.getTweets();
             tweet1.message.should.equal(message1);
             tweet1.author.should.equal(author1);
             
@@ -95,7 +95,7 @@ contract("TweetFactory", function() {
             tweet2.author.should.equal(author2);
         });
 
-        it("Should not show deleted tweets from a list", async () => {
+        it("Should not show deleted tweets from the list", async () => {
             const message1 = "Bitcoin go brr";
             const author1 = "Elon Musk";
 
@@ -115,7 +115,7 @@ contract("TweetFactory", function() {
 
             const tweets = await this.TweetFactory.getTweets();
             tweets.length.should.equal(2);
-            const [tweet1, tweet3] = tweets;
+            const [tweet3, tweet1] = tweets;
 
             tweet1.message.should.equal(message1);
             tweet1.author.should.equal(author1);
