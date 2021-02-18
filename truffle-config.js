@@ -20,7 +20,13 @@
 
 require("dotenv").config();
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-const { ROPSTEN_MNEMONIC, ROPSTEN_INFURA_APIKEY } = process.env;
+const { 
+  ROPSTEN_MNEMONIC, 
+  ROPSTEN_INFURA_APIKEY, 
+  HOST, 
+  PORT,
+  NETWORK_ID 
+} = process.env;
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
@@ -45,9 +51,9 @@ module.exports = {
     // options below to some value.
     
     development: {
-     host: process.env.host || "localhost",     // Localhost (default: none)
-     port: 8545,            // Standard Ethereum port (default: none)
-     network_id: "*",       // Any network (default: none)
+     host: HOST,     // Localhost (default: none)
+     port: PORT,            // Standard Ethereum port (default: none)
+     network_id: NETWORK_ID,       // Any network (default: none)
     },
     // Another network with more advanced options...
     // advanced: {
