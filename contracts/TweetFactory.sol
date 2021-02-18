@@ -22,6 +22,10 @@ contract TweetFactory {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
     }
 
+    function requireValidTweetId(uint id) public view {
+        require(nextTweetId > id, "Invalid tweet ID");
+    }
+
     function createTweet(string memory _message, string memory _author) public {
         uint id = nextTweetId++;
         tweets[id] = Tweet(id, _message, _author);
@@ -30,7 +34,7 @@ contract TweetFactory {
     }
 
     function getTweet(uint id) public view returns (Tweet memory) {
-        require(nextTweetId > id && id > 0, "Invalid tweet ID");
+        requireValidTweetId(id);
         Tweet memory retrievedTweet = tweets[id];
         require(retrievedTweet.id > 0, "Tweet has been deleted");
         return retrievedTweet;
@@ -54,7 +58,7 @@ contract TweetFactory {
     }
 
     function deleteTweet(uint id, string memory _author) public {
-        require(nextTweetId > id && id > 0, "Invalid tweet ID");
+       requireValidTweetId(id);
         Tweet memory retrievedTweet = tweets[id];
         require(compareStrings(retrievedTweet.author, _author), "Tweet deletion requests must come from the original author");
         delete tweets[id];
@@ -63,7 +67,7 @@ contract TweetFactory {
     }
 
     function updateTweet(uint id, string memory _message, string memory _author) public {
-        require(nextTweetId > id && id > 0, "Invalid tweet ID");
+        requireValidTweetId(id);
         Tweet memory oldTweet = tweets[id];
         require(compareStrings(oldTweet.author, _author), "Tweet update requests must come the original author");
         Tweet memory newTweet = Tweet(id, _message, _author);
