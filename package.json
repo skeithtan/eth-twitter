@@ -21,7 +21,7 @@
     "test": "rm -rf build && truffle test",
     "server": "ganache-cli",
     "build": "truffle compile",
-    "coverage": "rm -rf build && truffle run coverage",
+    "coverage": "(if exist ./build/ rmdir build /s /q) && truffle run coverage",
     "migrate": "truffle migrate --network ropsten",
     "docker:test": "docker-compose -p eth-twitter-test -f docker-compose.tests.yml up",
     "docker:migrate": "docker-compose -p eth-twitter-migrate -f docker-compose.migrate.yml up"

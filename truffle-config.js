@@ -18,19 +18,17 @@
  *
  */
 
-require("dotenv").config();
+ require("dotenv").config();
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-const { 
-  ROPSTEN_MNEMONIC, 
-  ROPSTEN_INFURA_APIKEY, 
-  HOST, 
-  PORT,
-  NETWORK_ID 
-} = process.env;
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+// const main_mnemonic = fs.readFileSync(".secret").toString().trim();
+// const ropsten_mnemonic = fs.readFileSync(".secret").toString().trim();
+const main_mnemonic = process.env.main_mnemonic;
+const kovan_mnemonic = process.env.kovan_mnemonic;
+const kovan_infura_apikey = process.env.kovan_infura_apikey;
+const main_infura_apikey = process.env.main_infura_apikey;
 
 module.exports = {
   /**
@@ -49,16 +47,21 @@ module.exports = {
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
-    
+    //
     development: {
-      host: HOST,
-      port: PORT,
-      network_id: NETWORK_ID      // Any network (default: none)
+      host: process.env.host || "127.0.0.1",
+      port: 8545,
+      network_id: "*"      // Any network (default: none)
     },
-    ganache: {
-      host: "127.0.0.1",
-      port: 7545,
-      network_id: "*"
+
+    kovan: {
+      provider: () =>
+        new HDWalletProvider(
+          kovan_mnemonic,
+          "https://kovan.infura.io/v3/" + kovan_infura_apikey
+        ),
+      network_id: "42",
+      gas: 8000000,
     },
     // Another network with more advanced options...
     // advanced: {
@@ -67,18 +70,18 @@ module.exports = {
     // gas: 8500000,           // Gas sent with each transaction (default: ~6700000)
     // gasPrice: 20000000000,  // 20 gwei (in wei) (default: 100 gwei)
     // from: <address>,        // Account to send txs from (default: accounts[0])
-    // websockets: true        // Enable EventEmitter interface for web3 (default: false)
+    // websocket: true        // Enable EventEmitter interface for web3 (default: false)
     // },
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
-    ropsten: {
-      provider: () => new HDWalletProvider(ROPSTEN_MNEMONIC, `https://ropsten.infura.io/v3/${ROPSTEN_INFURA_APIKEY}`),
-      network_id: 3,       // Ropsten's id
-      gas: 8000000,        // Ropsten has a lower block limit than mainnet
-      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-      timeoutBlocks: 1000,  // # of blocks before a deployment times out  (minimum/default: 50)
-      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
-    },
+    // ropsten: {
+    // provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
+    // network_id: 3,       // Ropsten's id
+    // gas: 5500000,        // Ropsten has a lower block limit than mainnet
+    // confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+    // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+    // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+    // },
     // Useful for private networks
     // private: {
     // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),
@@ -95,7 +98,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.1",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.0",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {

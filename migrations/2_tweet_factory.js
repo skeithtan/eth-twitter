@@ -1,5 +1,5 @@
 
-const TweetFactory = artifacts.require("TweetFactory.sol");
+const TweetFactory = artifacts.require("TweetFactory");
 
 module.exports = function(deployer) {
     return deployer.then(()=>{
